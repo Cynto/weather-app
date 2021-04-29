@@ -10,5 +10,7 @@ export default async function getCoordinates(location) {
     const longCord = coordinates.data[0].longitude;
     const coordArray = [latCord, longCord];
     return coordArray;
-  } catch {}
+  } catch {
+    getCoordinates(location);
+  }
 }

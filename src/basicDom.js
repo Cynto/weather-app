@@ -39,11 +39,12 @@ const basicDOM = (() => {
   leftHeader.appendChild(currentTempHeader);
 
   const weatherIcon = document.createElement('i');
-  weatherIcon.classList.add('weather-icon')
+  weatherIcon.classList.add('weather-icon');
   leftHeader.appendChild(weatherIcon);
 
   //right side of header
   const nav = document.createElement('nav');
+  nav.classList.add('nav');
   rightHeader.appendChild(nav);
   document.body.appendChild(header);
 
@@ -66,6 +67,35 @@ const basicDOM = (() => {
   searchInput.type = 'text';
   searchbarForm.appendChild(searchInput);
 
+  //navbar
+  const navBar = document.createElement('nav');
+  navBar.classList.add('navbar');
+  document.body.appendChild(navBar);
+
+  const now = document.createElement('a');
+  now.textContent = 'NOW';
+  now.id = 'now';
+  now.classList.add('nav-link-focused');
+  navBar.appendChild(now);
+
+  const hourly = document.createElement('a');
+  hourly.textContent = 'HOURLY';
+  hourly.id = 'hourly';
+  hourly.classList.add('nav-link');
+  navBar.appendChild(hourly);
+
+  const daily = document.createElement('a');
+  daily.textContent = 'DAILY';
+  daily.id = 'daily';
+  daily.classList.add('nav-link');
+  navBar.appendChild(daily);
+
+  const navbarArray = [now, hourly, daily];
+
+  const mainContainer = document.createElement('div');
+  mainContainer.classList.add('main-container');
+  document.body.appendChild(mainContainer);
+
   return {
     searchInput,
     searchbarDiv,
@@ -75,6 +105,8 @@ const basicDOM = (() => {
     locationHeader,
     currentTempHeader,
     weatherIcon,
+    navbarArray,
+    mainContainer,
   };
 })();
 export default basicDOM;

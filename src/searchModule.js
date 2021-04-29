@@ -1,5 +1,6 @@
 import basicDOM from './basicDom';
 import getWeather from './getWeather';
+import navbar from './navbar'
 
 const searchLocation = (() => {
   const searchbarDiv = basicDOM.searchbarDiv;
@@ -33,6 +34,7 @@ const searchLocation = (() => {
     try {
       const weatherObject = await getWeather(location);
       console.log(weatherObject);
+      navbar.setLocation(location);
       return weatherObject;
     } catch {}
     return null;
