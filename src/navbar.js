@@ -4,7 +4,12 @@ import getWeather from './getWeather';
 const navBar = (() => {
   const navbarArray = basicDOM.navbarArray;
 
-  let location = '';
+  let location = 'London';
+  let unit = 'metric';
+
+  const setUnit = (value) => {
+    unit = value;
+  };
 
   navbarArray.forEach((element) =>
     element.addEventListener('click', () => {
@@ -20,12 +25,15 @@ const navBar = (() => {
     location = place;
     return location;
   };
+  const getLocation = () => {
+    return location;
+  };
   navbarArray.forEach((element) =>
     element.addEventListener('click', () => {
-      getWeather(location);
+      getWeather(location, unit);
     }),
   );
 
-  return { setLocation };
+  return { setLocation, getLocation, setUnit };
 })();
 export default navBar;

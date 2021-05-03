@@ -15,14 +15,67 @@ function getIcon(icon, weatherObject) {
   return icon;
 }
 
+function getForecastIcon(icon, weatherObject) {
+  if (weatherObject.weather[0].main === 'Clouds') {
+    icon.classList.remove('fa-cloud-rain', 'far', 'fa-sun', 'sun');
+    icon.classList.add('fas', 'fa-cloud', 'cloud');
+  } else if (weatherObject.weather[0].main === 'Rain') {
+    icon.classList.remove('fa-cloud', 'far', 'fa-sun', 'sun');
+    icon.classList.add('fas', 'fa-cloud-rain', 'cloud');
+  } else if (weatherObject.weather[0].main === 'Clear') {
+    icon.classList.remove('fa-cloud', 'fas', 'fa-cloud-rain', 'cloud');
+    icon.classList.add('far', 'fa-sun', 'sun');
+  }
+  return icon;
+}
+
 const displayWeatherHeader = (weatherObject) => {
   const locationHeader = basicDOM.locationHeader;
   locationHeader.textContent = weatherObject.place;
 
   const currentTempHeader = basicDOM.currentTempHeader;
-  currentTempHeader.textContent = weatherObject.currentTemp + 'c';
+  currentTempHeader.textContent = weatherObject.currentTemp + weatherObject.cOrF;
 
   getIcon(basicDOM.weatherIcon, weatherObject);
+};
+const displayTodayForecast = (weatherObject) => {
+  const mainContainer = basicDOM.mainContainer;
+
+  const forecastDiv = document.createElement('div');
+  forecastDiv.classList.add('today-forecast-div');
+  mainContainer.appendChild(forecastDiv);
+
+  const cardHeader = document.createElement('div');
+  cardHeader.classList.add('card-header');
+  forecastDiv.appendChild(cardHeader);
+
+  const title = document.createElement('h2');
+  title.textContent = 'TODAY\'S WEATHER FORECAST';
+  cardHeader.appendChild(title);
+
+  const date = format(new Date(), 'd/M');
+
+  const dateText = document.createElement('span');
+  dateText.textContent = date;
+  cardHeader.appendChild(dateText);
+
+  const forecastContainer = document.createElement('div');
+  forecastContainer.classList.add('forecast-container');
+  forecastDiv.appendChild(forecastContainer);
+  const oldIcon = document.createElement('i');
+  const newIcon = getForecastIcon(oldIcon, weatherObject.forecast[0]);
+  
+  forecastContainer.appendChild(newIcon);
+
+  const highTemp = document.createElement('h3');
+  highTemp.textContent = Math.round(weatherObject.forecast[0].temp.max) + '°';
+  forecastContainer.appendChild(highTemp)
+
+  const realFeel = document.createElement('div');
+  realFeel.textContent = 'RealFeel ' + Math.round(weatherObject.forecast[0].feels_like.day) + '°';
+  realFeel.classList.add('real-feel');
+  forecastDiv.appendChild(realFeel)
+
 };
 const displayCurrentWeather = (weatherObject) => {
   const mainContainer = basicDOM.mainContainer;
@@ -60,7 +113,7 @@ const displayCurrentWeather = (weatherObject) => {
   currentTemp.classList.add('current-temp');
   tempContainer.appendChild(currentTemp);
   const c = document.createElement('span');
-  c.textContent = 'c';
+  c.textContent = weatherObject.cOrF;
   currentTemp.appendChild(c);
 
   const realFeel = document.createElement('div');
@@ -71,7 +124,7 @@ const displayCurrentWeather = (weatherObject) => {
   const spacedContent = document.createElement('div');
   spacedContent.classList.add('spaced-content');
   currentWeatherDiv.appendChild(spacedContent);
-  
+
   const currentWeather = document.createElement('h3');
   currentWeather.textContent = weatherObject.currentWeather;
   spacedContent.appendChild(currentWeather);
@@ -79,7 +132,8 @@ const displayCurrentWeather = (weatherObject) => {
   const moreDetails = document.createElement('h2');
   moreDetails.textContent = 'MORE DETAILS ->';
   spacedContent.appendChild(moreDetails);
-};
 
+  displayTodayForecast(weatherObject);
+};
 
 export { displayWeatherHeader, displayCurrentWeather, getIcon };

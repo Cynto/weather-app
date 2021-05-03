@@ -1,6 +1,7 @@
 import basicDOM from './basicDom';
 import getWeather from './getWeather';
-import navbar from './navbar'
+import navbar from './navbar';
+import totalUnitFunction from './unitModule';
 
 const searchLocation = (() => {
   const searchbarDiv = basicDOM.searchbarDiv;
@@ -13,7 +14,6 @@ const searchLocation = (() => {
     searchbarDiv.classList.remove('search-bar-full');
     searchbarDiv.classList.add('search-bar-full-big');
     searchbarDiv.setAttribute('style', 'transition: width 0.2s');
-    nav.setAttribute('style', 'width: 400px; transition: width 0.2s');
     searchInput.setAttribute('style', 'width: 250px transition: width 0.2s');
     searchIcon.setAttribute('style', 'margin-left: 20px');
   });
@@ -30,9 +30,9 @@ const searchLocation = (() => {
     }
   });
 
-  async function searchSubmit(location) {
+  async function searchSubmit(location, unit) {
     try {
-      const weatherObject = await getWeather(location);
+      const weatherObject = await getWeather(location, unit);
       console.log(weatherObject);
       navbar.setLocation(location);
       return weatherObject;
@@ -41,7 +41,8 @@ const searchLocation = (() => {
   }
   searchbarForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    searchSubmit(searchInput.value);
+    const unit = totalUnitFunction.getUnit()
+    searchSubmit(searchInput.value, unit);
     searchInput.value = '';
   });
 })();

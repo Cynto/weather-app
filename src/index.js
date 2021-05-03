@@ -6,8 +6,6 @@ import searchLocation from './searchModule';
 import { displayWeatherHeader, displayCurrentWeather } from './displayWeather';
 import navbar from './navbar';
 import dailyForecast from './dailyForecast';
+import totalUnitFunction from './unitModule';
 
 
-const idk = getWeather('london');
-
-navbar.setLocation('London');

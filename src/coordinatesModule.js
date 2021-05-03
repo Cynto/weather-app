@@ -11,6 +11,14 @@ export default async function getCoordinates(location) {
     const coordArray = [latCord, longCord];
     return coordArray;
   } catch {
-    getCoordinates(location);
+    const response = await fetch(
+      `https://api.opencagedata.com/geocode/v1/json?q=${location}&key=09c7d8c0f2594d4c863e92ae403780f7`,
+    );
+    const coordinates = await response.json();
+    console.log(coordinates.results[0].geometry)
+    const latCord = coordinates.results[0].geometry.lat;
+    const longCord = coordinates.results[0].geometry.lng;
+    const coordArray = [latCord, longCord];
+    return coordArray;
   }
 }

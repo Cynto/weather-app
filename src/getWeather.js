@@ -4,10 +4,14 @@ import { displayWeatherHeader, displayCurrentWeather } from './displayWeather';
 import dailyForecast from './dailyForecast';
 import hourlyForecast from './hourlyForecast';
 
-async function getWeather(location) {
+async function getWeather(location, unit) {
   try {
     const coordArray = await getCoordinates(location);
-    const weatherData = await getWeatherData(coordArray[0], coordArray[1]);
+    const weatherData = await getWeatherData(
+      coordArray[0],
+      coordArray[1],
+      unit,
+    );
 
     const locationCap = location.charAt(0).toUpperCase() + location.slice(1);
     console.log(weatherData);
@@ -18,8 +22,9 @@ async function getWeather(location) {
       forecast: weatherData.daily,
       realfeel: Math.round(weatherData.current.feels_like) + '°',
       hourly: weatherData.hourly,
+      cOrF: unit === 'metric' ? 'c' : 'F',
     };
-    console.log(weatherObject)
+    console.log(weatherObject);
 
     if (document.querySelector('.nav-link-focused').id === 'now') {
       displayCurrentWeather(weatherObject);
@@ -31,7 +36,7 @@ async function getWeather(location) {
     displayWeatherHeader(weatherObject);
     return weatherObject;
   } catch {
-    getWeather(location);
+    getWeather(location, unit);
   }
 }
 export default getWeather;
