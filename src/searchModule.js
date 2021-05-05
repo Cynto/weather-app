@@ -1,5 +1,6 @@
 import basicDOM from './basicDom';
 import getWeather from './getWeather';
+import {getWeatherStorage} from './getWeather'
 import navbar from './navbar';
 import totalUnitFunction from './unitModule';
 
@@ -35,6 +36,7 @@ const searchLocation = (() => {
       const weatherObject = await getWeather(location, unit);
       console.log(weatherObject);
       navbar.setLocation(location);
+      getWeatherStorage()
       return weatherObject;
     } catch {}
     return null;

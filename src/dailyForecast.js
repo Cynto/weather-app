@@ -1,6 +1,7 @@
 import basicDOM from './basicDom';
 import { format } from 'date-fns';
 import add from 'date-fns/add';
+import getDetailedDailyForecast from './detailedDailyForecast';
 
 function getRowIcon(icon, weatherObject) {
   if (weatherObject.main === 'Clouds') {
@@ -84,7 +85,11 @@ const dailyForecast = (weatherObject) => {
 
     const precipChance = document.createElement('h4');
     precipChance.textContent = Math.round((weatherObject.forecast[i].pop * 100)) + '%';
-    dailyRowDiv.appendChild(precipChance)
+    dailyRowDiv.appendChild(precipChance);
+
+    dailyRowDiv.addEventListener('click', () => {
+      getDetailedDailyForecast(weatherObject, forecastIconFinish, i)
+    })
   }
 };
 export default dailyForecast;

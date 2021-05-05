@@ -4,6 +4,20 @@ import { displayWeatherHeader, displayCurrentWeather } from './displayWeather';
 import dailyForecast from './dailyForecast';
 import hourlyForecast from './hourlyForecast';
 
+const getWeatherStorage = () => {
+  const weatherObject = JSON.parse(localStorage.getItem('weatherObject'));
+  
+  if (document.querySelector('.nav-link-focused').id === 'now') {
+    displayCurrentWeather(weatherObject);
+  } else if (document.querySelector('.nav-link-focused').id === 'hourly') {
+    hourlyForecast(weatherObject);
+  } else {
+    dailyForecast(weatherObject);
+  }
+  displayWeatherHeader(weatherObject);
+};
+export {getWeatherStorage}
+
 async function getWeather(location, unit) {
   try {
     const coordArray = await getCoordinates(location);
@@ -19,24 +33,20 @@ async function getWeather(location, unit) {
       place: locationCap,
       currentTemp: Math.round(weatherData.current.temp) + '°',
       currentWeather: weatherData.current.weather[0].main,
+      current: weatherData.current,
       forecast: weatherData.daily,
       realfeel: Math.round(weatherData.current.feels_like) + '°',
       hourly: weatherData.hourly,
       cOrF: unit === 'metric' ? 'c' : 'F',
     };
-    console.log(weatherObject);
 
-    if (document.querySelector('.nav-link-focused').id === 'now') {
-      displayCurrentWeather(weatherObject);
-    } else if (document.querySelector('.nav-link-focused').id === 'hourly') {
-      hourlyForecast(weatherObject);
-    } else {
-      dailyForecast(weatherObject);
-    }
-    displayWeatherHeader(weatherObject);
+    localStorage.setItem('weatherObject', JSON.stringify(weatherObject));
+    console.log(weatherObject);
+    getWeatherStorage()
     return weatherObject;
   } catch {
     getWeather(location, unit);
   }
 }
 export default getWeather;
+

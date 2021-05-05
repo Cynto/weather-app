@@ -1,5 +1,7 @@
 import basicDOM from './basicDom';
 import { format } from 'date-fns';
+import getDetailedCurrentStats from './detailedCurrentStats';
+import getDetailedDailyForecast from './detailedDailyForecast'
 
 function getIcon(icon, weatherObject) {
   if (weatherObject.currentWeather === 'Clouds') {
@@ -34,7 +36,8 @@ const displayWeatherHeader = (weatherObject) => {
   locationHeader.textContent = weatherObject.place;
 
   const currentTempHeader = basicDOM.currentTempHeader;
-  currentTempHeader.textContent = weatherObject.currentTemp + weatherObject.cOrF;
+  currentTempHeader.textContent =
+    weatherObject.currentTemp + weatherObject.cOrF;
 
   getIcon(basicDOM.weatherIcon, weatherObject);
 };
@@ -50,7 +53,7 @@ const displayTodayForecast = (weatherObject) => {
   forecastDiv.appendChild(cardHeader);
 
   const title = document.createElement('h2');
-  title.textContent = 'TODAY\'S WEATHER FORECAST';
+  title.textContent = "TODAY'S WEATHER FORECAST";
   cardHeader.appendChild(title);
 
   const date = format(new Date(), 'd/M');
@@ -64,18 +67,34 @@ const displayTodayForecast = (weatherObject) => {
   forecastDiv.appendChild(forecastContainer);
   const oldIcon = document.createElement('i');
   const newIcon = getForecastIcon(oldIcon, weatherObject.forecast[0]);
-  
+
   forecastContainer.appendChild(newIcon);
 
   const highTemp = document.createElement('h3');
   highTemp.textContent = Math.round(weatherObject.forecast[0].temp.max) + '°';
-  forecastContainer.appendChild(highTemp)
+  forecastContainer.appendChild(highTemp);
 
   const realFeel = document.createElement('div');
-  realFeel.textContent = 'RealFeel ' + Math.round(weatherObject.forecast[0].feels_like.day) + '°';
+  realFeel.textContent =
+    'RealFeel ' + Math.round(weatherObject.forecast[0].feels_like.day) + '°';
   realFeel.classList.add('real-feel');
-  forecastDiv.appendChild(realFeel)
+  forecastDiv.appendChild(realFeel);
 
+  const spacedContent = document.createElement('div');
+  spacedContent.classList.add('spaced-content');
+  forecastDiv.appendChild(spacedContent);
+
+  const currentWeather = document.createElement('h3');
+  currentWeather.textContent = weatherObject.forecast[0].weather[0].main;
+  spacedContent.appendChild(currentWeather);
+
+  const moreDetails = document.createElement('h2');
+  moreDetails.textContent = 'MORE DETAILS ->';
+  spacedContent.appendChild(moreDetails);
+
+  moreDetails.addEventListener('click', () => {
+    getDetailedDailyForecast(weatherObject, newIcon, 0)
+  })
 };
 const displayCurrentWeather = (weatherObject) => {
   const mainContainer = basicDOM.mainContainer;
@@ -132,6 +151,10 @@ const displayCurrentWeather = (weatherObject) => {
   const moreDetails = document.createElement('h2');
   moreDetails.textContent = 'MORE DETAILS ->';
   spacedContent.appendChild(moreDetails);
+
+  moreDetails.addEventListener('click', () => {
+    getDetailedCurrentStats(weatherObject, weatherIcon);
+  } );
 
   displayTodayForecast(weatherObject);
 };

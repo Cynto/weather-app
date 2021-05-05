@@ -1,5 +1,6 @@
 import basicDOM from './basicDom';
 import getWeather from './getWeather';
+import { getWeatherStorage } from './getWeather';
 
 const navBar = (() => {
   const navbarArray = basicDOM.navbarArray;
@@ -30,7 +31,7 @@ const navBar = (() => {
   };
   navbarArray.forEach((element) =>
     element.addEventListener('click', () => {
-      getWeather(location, unit);
+      getWeatherStorage();
     }),
   );
 

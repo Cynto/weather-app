@@ -111,6 +111,7 @@ const hourlyForecast = (weatherObject) => {
       weatherContainer.removeChild(weatherContainer.firstChild);
     }
     tomorrowLink.setAttribute('style', 'display: none');
+    furtherAhead.setAttribute('style', 'display: none')
     for (let i = 0; i < 24; i += 1) {
       const hourlyRowDiv = document.createElement('div');
       hourlyRowDiv.classList.add('daily-row');
