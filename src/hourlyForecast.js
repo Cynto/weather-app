@@ -1,6 +1,7 @@
 import basicDOM from './basicDom';
 import { format } from 'date-fns';
 import add from 'date-fns/add';
+import getDetailedHourlyForecast from './hourlyDetailedForecast';
 
 function getHourlyIcon(icon, weatherObject) {
   if (weatherObject.main === 'Clouds') {
@@ -30,9 +31,13 @@ const hourlyForecast = (weatherObject) => {
   const hoursLeft = 24 - time;
 
   for (let i = 0; i < hoursLeft; i += 1) {
+    const outerRowDiv = document.createElement('div');
+    outerRowDiv.classList.add('outer-row-div');
+    weatherContainer.appendChild(outerRowDiv);
+
     const hourlyRowDiv = document.createElement('div');
     hourlyRowDiv.classList.add('daily-row');
-    weatherContainer.appendChild(hourlyRowDiv);
+    outerRowDiv.appendChild(hourlyRowDiv);
 
     const hour = format(add(new Date(), { hours: i }), 'h a');
     const date = format(new Date(), 'd/M');
@@ -84,6 +89,26 @@ const hourlyForecast = (weatherObject) => {
       Math.round(weatherObject.hourly[i].pop * 100) + '%';
     hourlyRowDiv.appendChild(precipChance);
     weatherObject.hourly.splice(i, 1);
+
+    hourlyRowDiv.addEventListener(
+      'click',
+      () => {
+        if (hourlyRowDiv.classList.contains('done') === false) {
+          getDetailedHourlyForecast(
+            weatherObject,
+            i,
+            hourlyRowDiv,
+            dateContainer,
+            forecastIcon,
+            tempContainer,
+            feelsLike,
+            rainIcon,
+            precipChance,
+          );
+        }
+      },
+      {},
+    );
   }
   const furtherAhead = document.createElement('h2');
   furtherAhead.setAttribute(
@@ -106,18 +131,23 @@ const hourlyForecast = (weatherObject) => {
   const hoursLeft2 = 24 - time;
 
   tomorrowLink.addEventListener('click', () => {
-    console.log(hoursLeft2)
+    console.log(hoursLeft2);
     while (weatherContainer.firstChild) {
       weatherContainer.removeChild(weatherContainer.firstChild);
     }
     tomorrowLink.setAttribute('style', 'display: none');
-    furtherAhead.setAttribute('style', 'display: none')
+    furtherAhead.setAttribute('style', 'display: none');
     for (let i = 0; i < 24; i += 1) {
+      const outerRowDiv = document.createElement('div');
+      outerRowDiv.classList.add('outer-row-div');
+      weatherContainer.appendChild(outerRowDiv);
+
       const hourlyRowDiv = document.createElement('div');
       hourlyRowDiv.classList.add('daily-row');
-      weatherContainer.appendChild(hourlyRowDiv);
+      outerRowDiv.appendChild(hourlyRowDiv);
 
-      const hour = format(add(new Date(), { hours: (i + hoursLeft2) }), 'h a');
+      
+      const hour = format(add(new Date(), { hours: i + hoursLeft2 }), 'h a');
       const date = format(add(new Date(), { days: 1 }), 'd/M');
 
       const hourText = document.createElement('p');
@@ -166,6 +196,26 @@ const hourlyForecast = (weatherObject) => {
       precipChance.textContent =
         Math.round(weatherObject.hourly[i].pop * 100) + '%';
       hourlyRowDiv.appendChild(precipChance);
+
+      hourlyRowDiv.addEventListener(
+        'click',
+        () => {
+          if (hourlyRowDiv.classList.contains('done') === false) {
+            getDetailedHourlyForecast(
+              weatherObject,
+              i,
+              hourlyRowDiv,
+              dateContainer,
+              forecastIcon,
+              tempContainer,
+              feelsLike,
+              rainIcon,
+              precipChance,
+            );
+          }
+        },
+        {},
+      );
     }
   });
 };
