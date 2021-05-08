@@ -62,6 +62,7 @@ const dailyForecast = (weatherObject) => {
       forecastIcon,
       weatherObject.forecast[i].weather[0],
     );
+    forecastIcon.classList.add('daily-row-icon')
     dailyRowDiv.appendChild(forecastIconFinish);
 
     const tempContainer = document.createElement('div');
@@ -78,14 +79,17 @@ const dailyForecast = (weatherObject) => {
       '/' + Math.round(weatherObject.forecast[i].temp.min) + '°';
     tempContainer.appendChild(smallestTemp);
 
+    const popAndIconContainer = document.createElement('div');
+    popAndIconContainer.classList.add('pop-icon-container');
+    dailyRowDiv.appendChild(popAndIconContainer);
+
     const rainIcon = document.createElement('i');
     rainIcon.classList.add('fas', 'fa-tint', 'rain-icon');
-    rainIcon.setAttribute('style', 'font-size: 15px; margin-left: 160px; width: 10px;');
-    dailyRowDiv.appendChild(rainIcon);
+    popAndIconContainer.appendChild(rainIcon);
 
     const precipChance = document.createElement('h4');
     precipChance.textContent = Math.round((weatherObject.forecast[i].pop * 100)) + '%';
-    dailyRowDiv.appendChild(precipChance);
+    popAndIconContainer.appendChild(precipChance);
 
     dailyRowDiv.addEventListener('click', () => {
       getDetailedDailyForecast(weatherObject, forecastIconFinish, i)

@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import basicDOM from './basicDom';
+import getDetailedDailyForecast from './detailedDailyForecast'
 
 const getDetailedCurrentStats = (weatherObject, weatherIcon) => {
   const mainContainer = basicDOM.mainContainer;
@@ -7,6 +8,12 @@ const getDetailedCurrentStats = (weatherObject, weatherIcon) => {
   while (mainContainer.firstChild) {
     mainContainer.removeChild(mainContainer.firstChild);
   }
+  const arrowAndDateContainer = document.createElement('div');
+  arrowAndDateContainer.classList.add('arrow-date-container');
+  mainContainer.appendChild(arrowAndDateContainer);
+
+  const notVisible = document.createElement('i');
+  arrowAndDateContainer.appendChild(notVisible);
 
   let date = format(new Date(), 'EEEE, MMMM d');
   date = date.toUpperCase();
@@ -14,7 +21,15 @@ const getDetailedCurrentStats = (weatherObject, weatherIcon) => {
   dateText.setAttribute('style', '');
   dateText.classList.add('detailed-date');
   dateText.textContent = date;
-  mainContainer.appendChild(dateText);
+  arrowAndDateContainer.appendChild(dateText);
+
+  const nextDay = document.createElement('i');
+  arrowAndDateContainer.appendChild(nextDay);
+  nextDay.classList.add('fas', 'fa-arrow-right');
+
+  nextDay.addEventListener('click', () => {
+    getDetailedDailyForecast(weatherObject, weatherIcon, 1);
+  });
 
   const detailedCard = document.createElement('div');
   detailedCard.classList.add('detailed-card');

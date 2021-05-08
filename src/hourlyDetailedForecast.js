@@ -10,8 +10,7 @@ const getDetailedHourlyForecast = (
   forecastIcon,
   tempContainer,
   feelsLike,
-  rainIcon,
-  precipChance,
+  popAndIconContainer,
 ) => {
   if (hourlyRowDiv.classList.contains('detailed-hourly') === false) {
     const mainContainer = basicDOM.mainContainer;
@@ -24,8 +23,7 @@ const getDetailedHourlyForecast = (
     newHourlyRow.appendChild(forecastIcon);
     newHourlyRow.appendChild(tempContainer);
     newHourlyRow.appendChild(feelsLike);
-    newHourlyRow.appendChild(rainIcon);
-    newHourlyRow.appendChild(precipChance);
+    newHourlyRow.appendChild(popAndIconContainer);
     hourlyRowDiv.appendChild(newHourlyRow);
 
     const statsContainer = document.createElement('div');
@@ -148,8 +146,8 @@ const getDetailedHourlyForecast = (
       hourlyRowDiv.appendChild(forecastIcon);
       hourlyRowDiv.appendChild(tempContainer);
       hourlyRowDiv.appendChild(feelsLike);
-      hourlyRowDiv.appendChild(rainIcon);
-      hourlyRowDiv.appendChild(precipChance);
+      hourlyRowDiv.appendChild(popAndIconContainer);
+      
     });
   }
 };

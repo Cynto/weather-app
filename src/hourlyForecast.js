@@ -60,10 +60,10 @@ const hourlyForecast = (weatherObject) => {
       forecastIcon,
       weatherObject.hourly[i].weather[0],
     );
+    forecastIcon.classList.add('daily-row-icon');
     hourlyRowDiv.appendChild(forecastIconFinish);
 
     const tempContainer = document.createElement('div');
-    tempContainer.classList.add('row-temp-container');
     hourlyRowDiv.appendChild(tempContainer);
 
     const temp = document.createElement('h3');
@@ -76,18 +76,18 @@ const hourlyForecast = (weatherObject) => {
     feelsLike.classList.add('hourly-feels-like');
     hourlyRowDiv.appendChild(feelsLike);
 
+    const popAndIconContainer = document.createElement('div');
+    popAndIconContainer.classList.add('pop-icon-container');
+    hourlyRowDiv.appendChild(popAndIconContainer);
+
     const rainIcon = document.createElement('i');
     rainIcon.classList.add('fas', 'fa-tint', 'rain-icon');
-    rainIcon.setAttribute(
-      'style',
-      'font-size: 15px; margin-left: 80px; width: 10px;',
-    );
-    hourlyRowDiv.appendChild(rainIcon);
+    popAndIconContainer.appendChild(rainIcon);
 
     const precipChance = document.createElement('h4');
     precipChance.textContent =
       Math.round(weatherObject.hourly[i].pop * 100) + '%';
-    hourlyRowDiv.appendChild(precipChance);
+    popAndIconContainer.appendChild(precipChance);
     weatherObject.hourly.splice(i, 1);
 
     hourlyRowDiv.addEventListener(
@@ -102,8 +102,7 @@ const hourlyForecast = (weatherObject) => {
             forecastIcon,
             tempContainer,
             feelsLike,
-            rainIcon,
-            precipChance,
+            popAndIconContainer,
           );
         }
       },
@@ -146,7 +145,6 @@ const hourlyForecast = (weatherObject) => {
       hourlyRowDiv.classList.add('daily-row');
       outerRowDiv.appendChild(hourlyRowDiv);
 
-      
       const hour = format(add(new Date(), { hours: i + hoursLeft2 }), 'h a');
       const date = format(add(new Date(), { days: 1 }), 'd/M');
 
@@ -168,6 +166,7 @@ const hourlyForecast = (weatherObject) => {
         forecastIcon,
         weatherObject.hourly[i].weather[0],
       );
+      forecastIcon.classList.add('daily-row-icon');
       hourlyRowDiv.appendChild(forecastIconFinish);
 
       const tempContainer = document.createElement('div');
@@ -184,18 +183,18 @@ const hourlyForecast = (weatherObject) => {
       feelsLike.classList.add('hourly-feels-like');
       hourlyRowDiv.appendChild(feelsLike);
 
+      const popAndIconContainer = document.createElement('div');
+      popAndIconContainer.classList.add('pop-icon-container');
+      hourlyRowDiv.appendChild(popAndIconContainer);
+
       const rainIcon = document.createElement('i');
       rainIcon.classList.add('fas', 'fa-tint', 'rain-icon');
-      rainIcon.setAttribute(
-        'style',
-        'font-size: 15px; margin-left: 80px; width: 10px;',
-      );
-      hourlyRowDiv.appendChild(rainIcon);
+      popAndIconContainer.appendChild(rainIcon);
 
       const precipChance = document.createElement('h4');
       precipChance.textContent =
         Math.round(weatherObject.hourly[i].pop * 100) + '%';
-      hourlyRowDiv.appendChild(precipChance);
+      popAndIconContainer.appendChild(precipChance);
 
       hourlyRowDiv.addEventListener(
         'click',
