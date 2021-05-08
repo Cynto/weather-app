@@ -493,7 +493,7 @@ form input:focus {
 .detailed-hourly-spaced:nth-child(1) {
   border-top: none;
 }
-
+/* */
 /* mobile layout */ 
 @media only screen and (max-width: 600px) {
   .title {
