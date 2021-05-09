@@ -1,6 +1,4 @@
-import { format } from 'date-fns';
 import basicDOM from './basicDom';
-import hourlyForecast from './hourlyForecast';
 
 const getDetailedHourlyForecast = (
   weatherObject,
@@ -57,8 +55,9 @@ const getDetailedHourlyForecast = (
     windTitle.textContent = 'Wind';
     windDiv.appendChild(windTitle);
     const windValue = document.createElement('p');
-    windValue.textContent =
-      Math.round(weatherObject.hourly[hour].wind_speed) + 'km/h';
+    windValue.textContent = `${Math.round(
+      weatherObject.hourly[hour].wind_speed,
+    )}km/h`;
     windDiv.appendChild(windValue);
     innerStatsContainer.appendChild(windDiv);
 
@@ -68,8 +67,9 @@ const getDetailedHourlyForecast = (
     windGustTitle.textContent = 'Wind Gusts';
     windGustDiv.appendChild(windGustTitle);
     const windGustValue = document.createElement('p');
-    windGustValue.textContent =
-      Math.round(weatherObject.hourly[hour].wind_gust) + 'km/h';
+    windGustValue.textContent = `${Math.round(
+      weatherObject.hourly[hour].wind_gust,
+    )}km/h`;
     windGustDiv.appendChild(windGustValue);
     innerStatsContainer.appendChild(windGustDiv);
 
@@ -79,7 +79,7 @@ const getDetailedHourlyForecast = (
     cloudTitle.textContent = 'Cloud Cover';
     cloudDiv.appendChild(cloudTitle);
     const cloudValue = document.createElement('p');
-    cloudValue.textContent = weatherObject.hourly[hour].clouds + '%';
+    cloudValue.textContent = `${weatherObject.hourly[hour].clouds}%`;
     cloudDiv.appendChild(cloudValue);
     innerStatsContainer.appendChild(cloudDiv);
 
@@ -89,8 +89,9 @@ const getDetailedHourlyForecast = (
     humidityTitle.textContent = 'Humidity';
     humidityDiv.appendChild(humidityTitle);
     const humidityValue = document.createElement('p');
-    humidityValue.textContent =
-      Math.round(weatherObject.hourly[hour].humidity) + '%';
+    humidityValue.textContent = `${Math.round(
+      weatherObject.hourly[hour].humidity,
+    )}%`;
     humidityDiv.appendChild(humidityValue);
     innerStatsContainer.appendChild(humidityDiv);
 
@@ -100,18 +101,19 @@ const getDetailedHourlyForecast = (
     popTitle.textContent = 'Probability of Precipitation';
     popDiv.appendChild(popTitle);
     const popValue = document.createElement('p');
-    popValue.textContent =
-      Math.round(weatherObject.hourly[hour].pop) * 100 + '%';
+    popValue.textContent = `${
+      Math.round(weatherObject.hourly[hour].pop) * 100
+    }%`;
     popDiv.appendChild(popValue);
     innerStatsContainer.appendChild(popDiv);
-  
+
     const pressureDiv = document.createElement('div');
     pressureDiv.classList.add('detailed-hourly-spaced');
     const pressureTitle = document.createElement('h4');
     pressureTitle.textContent = 'Pressure';
     pressureDiv.appendChild(pressureTitle);
     const pressureValue = document.createElement('p');
-    pressureValue.textContent = weatherObject.hourly[hour].pressure + ' mb';
+    pressureValue.textContent = `${weatherObject.hourly[hour].pressure} mb`;
     pressureDiv.appendChild(pressureValue);
     innerStatsContainer.appendChild(pressureDiv);
 
@@ -121,8 +123,9 @@ const getDetailedHourlyForecast = (
     visiblityTitle.textContent = 'Visibility';
     visibilityDiv.appendChild(visiblityTitle);
     const visibilityValue = document.createElement('p');
-    visibilityValue.textContent =
-      weatherObject.hourly[hour].visibility / 1000 + ' km';
+    visibilityValue.textContent = `${
+      weatherObject.hourly[hour].visibility / 1000
+    } km`;
     visibilityDiv.appendChild(visibilityValue);
     innerStatsContainer.appendChild(visibilityDiv);
 
@@ -141,13 +144,11 @@ const getDetailedHourlyForecast = (
 
       hourlyRowDiv.classList.add('daily-row', 'done');
       hourlyRowDiv.classList.remove('detailed-hourly');
-      console.log(hourlyRowDiv.classList);
       hourlyRowDiv.appendChild(dateContainer);
       hourlyRowDiv.appendChild(forecastIcon);
       hourlyRowDiv.appendChild(tempContainer);
       hourlyRowDiv.appendChild(feelsLike);
       hourlyRowDiv.appendChild(popAndIconContainer);
-      
     });
   }
 };

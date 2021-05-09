@@ -1,6 +1,6 @@
-import basicDOM from './basicDom';
 import { format } from 'date-fns';
 import add from 'date-fns/add';
+import basicDOM from './basicDom';
 import getDetailedHourlyForecast from './hourlyDetailedForecast';
 
 function getHourlyIcon(icon, weatherObject) {
@@ -67,12 +67,13 @@ const hourlyForecast = (weatherObject) => {
     hourlyRowDiv.appendChild(tempContainer);
 
     const temp = document.createElement('h3');
-    temp.textContent = Math.round(weatherObject.hourly[i].temp) + '°';
+    temp.textContent = `${Math.round(weatherObject.hourly[i].temp)}°`;
     tempContainer.appendChild(temp);
 
     const feelsLike = document.createElement('h4');
-    feelsLike.textContent =
-      'RealFeel ' + Math.round(weatherObject.hourly[i].feels_like) + '°';
+    feelsLike.textContent = `RealFeel ${Math.round(
+      weatherObject.hourly[i].feels_like,
+    )}°`;
     feelsLike.classList.add('hourly-feels-like');
     hourlyRowDiv.appendChild(feelsLike);
 
@@ -85,8 +86,9 @@ const hourlyForecast = (weatherObject) => {
     popAndIconContainer.appendChild(rainIcon);
 
     const precipChance = document.createElement('h4');
-    precipChance.textContent =
-      Math.round(weatherObject.hourly[i].pop * 100) + '%';
+    precipChance.textContent = `${Math.round(
+      weatherObject.hourly[i].pop * 100,
+    )}%`;
     popAndIconContainer.appendChild(precipChance);
     weatherObject.hourly.splice(i, 1);
 
@@ -126,11 +128,9 @@ const hourlyForecast = (weatherObject) => {
   arrowIcon.classList.add('fas', 'fa-arrow-right');
   tomorrowLink.appendChild(arrowIcon);
 
-  const time2 = format(new Date(), 'H');
   const hoursLeft2 = 24 - time;
 
   tomorrowLink.addEventListener('click', () => {
-    console.log(hoursLeft2);
     while (weatherContainer.firstChild) {
       weatherContainer.removeChild(weatherContainer.firstChild);
     }
@@ -174,12 +174,13 @@ const hourlyForecast = (weatherObject) => {
       hourlyRowDiv.appendChild(tempContainer);
 
       const temp = document.createElement('h3');
-      temp.textContent = Math.round(weatherObject.hourly[i].temp) + '°';
+      temp.textContent = `${Math.round(weatherObject.hourly[i].temp)}°`;
       tempContainer.appendChild(temp);
 
       const feelsLike = document.createElement('h4');
-      feelsLike.textContent =
-        'RealFeel ' + Math.round(weatherObject.hourly[i].feels_like) + '°';
+      feelsLike.textContent = `RealFeel ${Math.round(
+        weatherObject.hourly[i].feels_like,
+      )}°`;
       feelsLike.classList.add('hourly-feels-like');
       hourlyRowDiv.appendChild(feelsLike);
 
@@ -192,8 +193,9 @@ const hourlyForecast = (weatherObject) => {
       popAndIconContainer.appendChild(rainIcon);
 
       const precipChance = document.createElement('h4');
-      precipChance.textContent =
-        Math.round(weatherObject.hourly[i].pop * 100) + '%';
+      precipChance.textContent = `${Math.round(
+        weatherObject.hourly[i].pop * 100,
+      )}%`;
       popAndIconContainer.appendChild(precipChance);
 
       hourlyRowDiv.addEventListener(

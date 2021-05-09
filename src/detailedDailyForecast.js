@@ -78,8 +78,9 @@ const getDetailedDailyForecast = (weatherObject, weatherIcon, day) => {
   iconAndTempContainer.appendChild(weatherIcon);
 
   const currentTemp = document.createElement('div');
-  currentTemp.textContent =
-    Math.round(weatherObject.forecast[day].temp.max) + '°';
+  currentTemp.textContent = `${Math.round(
+    weatherObject.forecast[day].temp.max,
+  )}°`;
   currentTemp.classList.add('current-temp-detailed');
   iconAndTempContainer.appendChild(currentTemp);
 
@@ -88,8 +89,9 @@ const getDetailedDailyForecast = (weatherObject, weatherIcon, day) => {
   currentTemp.appendChild(currentUnit);
 
   const realFeel = document.createElement('p');
-  realFeel.textContent =
-    'RealFeel ' + Math.round(weatherObject.forecast[day].feels_like.day) + '°';
+  realFeel.textContent = `RealFeel ${Math.round(
+    weatherObject.forecast[day].feels_like.day,
+  )}°`;
   realFeel.setAttribute(
     'style',
     'display: flex; align-items: center; font-weight: bold',
@@ -125,8 +127,9 @@ const getDetailedDailyForecast = (weatherObject, weatherIcon, day) => {
   windTitle.textContent = 'Wind';
   windDiv.appendChild(windTitle);
   const windValue = document.createElement('p');
-  windValue.textContent =
-    Math.round(weatherObject.forecast[day].wind_speed) + 'km/h';
+  windValue.textContent = `${Math.round(
+    weatherObject.forecast[day].wind_speed,
+  )} km/h`;
   windDiv.appendChild(windValue);
   leftStatsContainer.appendChild(windDiv);
 
@@ -136,8 +139,9 @@ const getDetailedDailyForecast = (weatherObject, weatherIcon, day) => {
   windGustTitle.textContent = 'Wind Gusts';
   windGustDiv.appendChild(windGustTitle);
   const windGustValue = document.createElement('p');
-  windGustValue.textContent =
-    Math.round(weatherObject.forecast[day].wind_gust) + 'km/h';
+  windGustValue.textContent = `${Math.round(
+    weatherObject.forecast[day].wind_gust,
+  )}km/h`;
   windGustDiv.appendChild(windGustValue);
   leftStatsContainer.appendChild(windGustDiv);
 
@@ -147,7 +151,7 @@ const getDetailedDailyForecast = (weatherObject, weatherIcon, day) => {
   cloudTitle.textContent = 'Cloud Cover';
   cloudDiv.appendChild(cloudTitle);
   const cloudValue = document.createElement('p');
-  cloudValue.textContent = weatherObject.forecast[day].clouds + '%';
+  cloudValue.textContent = `${weatherObject.forecast[day].clouds}%`;
   cloudDiv.appendChild(cloudValue);
   leftStatsContainer.appendChild(cloudDiv);
 
@@ -161,8 +165,9 @@ const getDetailedDailyForecast = (weatherObject, weatherIcon, day) => {
   humidityTitle.textContent = 'Humidity';
   humidityDiv.appendChild(humidityTitle);
   const humidityValue = document.createElement('p');
-  humidityValue.textContent =
-    Math.round(weatherObject.forecast[day].humidity) + '%';
+  humidityValue.textContent = `${Math.round(
+    weatherObject.forecast[day].humidity,
+  )}%`;
   humidityDiv.appendChild(humidityValue);
   rightStatsContainer.appendChild(humidityDiv);
 
@@ -172,8 +177,9 @@ const getDetailedDailyForecast = (weatherObject, weatherIcon, day) => {
   popTitle.textContent = 'Probability of Precipitation';
   popDiv.appendChild(popTitle);
   const popValue = document.createElement('p');
-  popValue.textContent =
-    Math.round(weatherObject.forecast[day].pop) * 100 + '%';
+  popValue.textContent = `${
+    Math.round(weatherObject.forecast[day].pop) * 100
+  }%`;
   popDiv.appendChild(popValue);
   rightStatsContainer.appendChild(popDiv);
 
@@ -183,8 +189,9 @@ const getDetailedDailyForecast = (weatherObject, weatherIcon, day) => {
   rainTitle.textContent = 'Rain';
   rainDiv.appendChild(rainTitle);
   const rainValue = document.createElement('p');
-  rainValue.textContent =
-    Math.round(weatherObject.forecast[day].rain * 10) / 10 + ' mm';
+  rainValue.textContent = `${
+    Math.round(weatherObject.forecast[day].rain * 10) / 10
+  } mm`;
   rainDiv.appendChild(rainValue);
   rightStatsContainer.appendChild(rainDiv);
 
@@ -194,7 +201,7 @@ const getDetailedDailyForecast = (weatherObject, weatherIcon, day) => {
   pressureTitle.textContent = 'Pressure';
   pressureDiv.appendChild(pressureTitle);
   const pressureValue = document.createElement('p');
-  pressureValue.textContent = weatherObject.forecast[day].pressure + ' mb';
+  pressureValue.textContent = `${weatherObject.forecast[day].pressure} mb`;
   pressureDiv.appendChild(pressureValue);
   rightStatsContainer.appendChild(pressureDiv);
 };

@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import basicDOM from './basicDom';
-import getDetailedDailyForecast from './detailedDailyForecast'
+import getDetailedDailyForecast from './detailedDailyForecast';
 
 const getDetailedCurrentStats = (weatherObject, weatherIcon) => {
   const mainContainer = basicDOM.mainContainer;
@@ -74,7 +74,7 @@ const getDetailedCurrentStats = (weatherObject, weatherIcon) => {
   currentTemp.appendChild(currentUnit);
 
   const realFeel = document.createElement('p');
-  realFeel.textContent = 'RealFeel ' + weatherObject.realfeel;
+  realFeel.textContent = `RealFeel ${weatherObject.realfeel}`;
   realFeel.setAttribute(
     'style',
     'display: flex; align-items: center; font-weight: bold',
@@ -110,7 +110,9 @@ const getDetailedCurrentStats = (weatherObject, weatherIcon) => {
   windTitle.textContent = 'Wind Speed';
   windDiv.appendChild(windTitle);
   const windValue = document.createElement('p');
-  windValue.textContent = Math.round(weatherObject.current.wind_speed) + 'km/h';
+  windValue.textContent = `${Math.round(
+    weatherObject.current.wind_speed,
+  )} km/h`;
   windDiv.appendChild(windValue);
   leftStatsContainer.appendChild(windDiv);
 
@@ -120,7 +122,7 @@ const getDetailedCurrentStats = (weatherObject, weatherIcon) => {
   visiblityTitle.textContent = 'Visibility';
   visibilityDiv.appendChild(visiblityTitle);
   const visibilityValue = document.createElement('p');
-  visibilityValue.textContent = weatherObject.current.visibility / 1000 + ' km';
+  visibilityValue.textContent = `${weatherObject.current.visibility / 1000} km`;
   visibilityDiv.appendChild(visibilityValue);
   leftStatsContainer.appendChild(visibilityDiv);
 
@@ -134,7 +136,7 @@ const getDetailedCurrentStats = (weatherObject, weatherIcon) => {
   humidityTitle.textContent = 'Humidity';
   humidityDiv.appendChild(humidityTitle);
   const humidityValue = document.createElement('p');
-  humidityValue.textContent = Math.round(weatherObject.current.humidity) + '%';
+  humidityValue.textContent = `${Math.round(weatherObject.current.humidity)}%`;
   humidityDiv.appendChild(humidityValue);
   rightStatsContainer.appendChild(humidityDiv);
 
@@ -144,7 +146,7 @@ const getDetailedCurrentStats = (weatherObject, weatherIcon) => {
   pressureTitle.textContent = 'Pressure';
   pressureDiv.appendChild(pressureTitle);
   const pressureValue = document.createElement('p');
-  pressureValue.textContent = weatherObject.current.pressure + ' mb';
+  pressureValue.textContent = `${weatherObject.current.pressure} mb`;
   pressureDiv.appendChild(pressureValue);
   rightStatsContainer.appendChild(pressureDiv);
 
@@ -154,7 +156,7 @@ const getDetailedCurrentStats = (weatherObject, weatherIcon) => {
   cloudTitle.textContent = 'Cloud Cover';
   cloudDiv.appendChild(cloudTitle);
   const cloudValue = document.createElement('p');
-  cloudValue.textContent = weatherObject.current.clouds + '%';
+  cloudValue.textContent = `${weatherObject.current.clouds}%`;
   cloudDiv.appendChild(cloudValue);
   rightStatsContainer.appendChild(cloudDiv);
 };

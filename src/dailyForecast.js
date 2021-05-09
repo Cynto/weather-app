@@ -1,6 +1,6 @@
-import basicDOM from './basicDom';
 import { format } from 'date-fns';
 import add from 'date-fns/add';
+import basicDOM from './basicDom';
 import getDetailedDailyForecast from './detailedDailyForecast';
 
 function getRowIcon(icon, weatherObject) {
@@ -23,11 +23,11 @@ const dailyForecast = (weatherObject) => {
     mainContainer.removeChild(mainContainer.firstChild);
   }
 
-  const currentDate = format(new Date(), 'MMMM c');
-  const futureDate = format(add(new Date(), { days: 8 }), 'MMMM c');
+  const currentDate = format(new Date(), 'MMMM d');
+  const futureDate = format(add(new Date(), { days: 8 }), 'MMMM d');
 
   const dateSpan = document.createElement('p');
-  dateSpan.textContent = currentDate + ' - ' + futureDate;
+  dateSpan.textContent = `${currentDate} - ${futureDate}`;
   dateSpan.classList.add('date-span');
   mainContainer.appendChild(dateSpan);
 
@@ -62,7 +62,7 @@ const dailyForecast = (weatherObject) => {
       forecastIcon,
       weatherObject.forecast[i].weather[0],
     );
-    forecastIcon.classList.add('daily-row-icon')
+    forecastIcon.classList.add('daily-row-icon');
     dailyRowDiv.appendChild(forecastIconFinish);
 
     const tempContainer = document.createElement('div');
@@ -70,13 +70,15 @@ const dailyForecast = (weatherObject) => {
     dailyRowDiv.appendChild(tempContainer);
 
     const highestTemp = document.createElement('h3');
-    highestTemp.textContent =
-      Math.round(weatherObject.forecast[i].temp.max) + '°';
+    highestTemp.textContent = `${Math.round(
+      weatherObject.forecast[i].temp.max,
+    )}°`;
     tempContainer.appendChild(highestTemp);
 
     const smallestTemp = document.createElement('h4');
-    smallestTemp.textContent =
-      '/' + Math.round(weatherObject.forecast[i].temp.min) + '°';
+    smallestTemp.textContent = `/${Math.round(
+      weatherObject.forecast[i].temp.min,
+    )}°`;
     tempContainer.appendChild(smallestTemp);
 
     const popAndIconContainer = document.createElement('div');
@@ -88,12 +90,14 @@ const dailyForecast = (weatherObject) => {
     popAndIconContainer.appendChild(rainIcon);
 
     const precipChance = document.createElement('h4');
-    precipChance.textContent = Math.round((weatherObject.forecast[i].pop * 100)) + '%';
+    precipChance.textContent = `${Math.round(
+      weatherObject.forecast[i].pop * 100,
+    )}%`;
     popAndIconContainer.appendChild(precipChance);
 
     dailyRowDiv.addEventListener('click', () => {
-      getDetailedDailyForecast(weatherObject, forecastIconFinish, i)
-    })
+      getDetailedDailyForecast(weatherObject, forecastIconFinish, i);
+    });
   }
 };
 export default dailyForecast;

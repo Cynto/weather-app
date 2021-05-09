@@ -1,5 +1,3 @@
-import getWeatherData from './weatherModule';
-
 export default async function getCoordinates(location) {
   try {
     const response = await fetch(

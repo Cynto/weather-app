@@ -25,8 +25,6 @@ const totalUnitFunction = (() => {
 
   let unit = 'metric';
 
-  const unitArray = [celcius, fahrenheit];
-
   let location = navbar.getLocation();
 
   unitButton.addEventListener('click', () => {
@@ -43,7 +41,6 @@ const totalUnitFunction = (() => {
     }
     navbar.setUnit(unit);
     getWeather(location, unit);
-    console.log(unit);
   });
   const getUnit = () => {
     return unit;

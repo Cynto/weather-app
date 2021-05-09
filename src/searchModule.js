@@ -1,6 +1,6 @@
 import basicDOM from './basicDom';
 import getWeather from './getWeather';
-import {getWeatherStorage} from './getWeather'
+import { getWeatherStorage } from './getWeather';
 import navbar from './navbar';
 import totalUnitFunction from './unitModule';
 
@@ -20,7 +20,6 @@ const searchLocation = (() => {
   });
 
   document.addEventListener('click', (e) => {
-    console.log(e.target.toString());
     if (e.target.toString() !== '[object HTMLInputElement]') {
       nav.setAttribute('style', '');
       searchInput.setAttribute('style', '');
@@ -34,16 +33,15 @@ const searchLocation = (() => {
   async function searchSubmit(location, unit) {
     try {
       const weatherObject = await getWeather(location, unit);
-      console.log(weatherObject);
       navbar.setLocation(location);
-      getWeatherStorage()
+      getWeatherStorage();
       return weatherObject;
     } catch {}
     return null;
   }
   searchbarForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const unit = totalUnitFunction.getUnit()
+    const unit = totalUnitFunction.getUnit();
     searchSubmit(searchInput.value, unit);
     searchInput.value = '';
   });

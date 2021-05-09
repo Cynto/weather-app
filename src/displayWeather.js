@@ -1,7 +1,7 @@
-import basicDOM from './basicDom';
 import { format } from 'date-fns';
+import basicDOM from './basicDom';
 import getDetailedCurrentStats from './detailedCurrentStats';
-import getDetailedDailyForecast from './detailedDailyForecast'
+import getDetailedDailyForecast from './detailedDailyForecast';
 
 function getIcon(icon, weatherObject) {
   if (weatherObject.currentWeather === 'Clouds') {
@@ -71,12 +71,13 @@ const displayTodayForecast = (weatherObject) => {
   forecastContainer.appendChild(newIcon);
 
   const highTemp = document.createElement('h3');
-  highTemp.textContent = Math.round(weatherObject.forecast[0].temp.max) + '°';
+  highTemp.textContent = `${Math.round(weatherObject.forecast[0].temp.max)}°`;
   forecastContainer.appendChild(highTemp);
 
   const realFeel = document.createElement('div');
-  realFeel.textContent =
-    'RealFeel ' + Math.round(weatherObject.forecast[0].feels_like.day) + '°';
+  realFeel.textContent = `RealFeel ${Math.round(
+    weatherObject.forecast[0].feels_like.day,
+  )}°`;
   realFeel.classList.add('real-feel');
   forecastDiv.appendChild(realFeel);
 
@@ -93,8 +94,8 @@ const displayTodayForecast = (weatherObject) => {
   spacedContent.appendChild(moreDetails);
 
   moreDetails.addEventListener('click', () => {
-    getDetailedDailyForecast(weatherObject, newIcon, 0)
-  })
+    getDetailedDailyForecast(weatherObject, newIcon, 0);
+  });
 };
 const displayCurrentWeather = (weatherObject) => {
   const mainContainer = basicDOM.mainContainer;
@@ -136,7 +137,7 @@ const displayCurrentWeather = (weatherObject) => {
   currentTemp.appendChild(c);
 
   const realFeel = document.createElement('div');
-  realFeel.textContent = 'RealFeel ' + weatherObject.realfeel;
+  realFeel.textContent = `RealFeel ${weatherObject.realfeel}`;
   realFeel.classList.add('real-feel');
   currentWeatherDiv.appendChild(realFeel);
 
@@ -154,7 +155,7 @@ const displayCurrentWeather = (weatherObject) => {
 
   moreDetails.addEventListener('click', () => {
     getDetailedCurrentStats(weatherObject, weatherIcon);
-  } );
+  });
 
   displayTodayForecast(weatherObject);
 };
